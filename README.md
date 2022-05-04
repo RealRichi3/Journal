@@ -1,2 +1,3 @@
 # Journal
-Online personal Journal
+
+An online personal journal, accessible from anywhere
