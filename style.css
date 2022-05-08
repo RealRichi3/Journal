@@ -5,10 +5,10 @@ html, body {
 }
 
 body {
-  background-image: url(./img/background.jpg);
+  /* background-image: url(./img/background.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: fixed; */
   font-family: sans-serif;
   padding-left: none;
 }
@@ -16,10 +16,16 @@ body {
 * {
   box-sizing: border-box;
 }
+
 .container {
   width: 100vw;
   height: 100%;
   display: flex;
+  flex-direction: column;
+}
+
+.container > div {
+  margin-bottom: 70px;  
 }
 
 .header {
@@ -61,12 +67,62 @@ a {
   font-weight: 300;
 }
 
+.btn {
+  border-radius: 5px;
+  border: 0;
+  width: 120px;
+  height: 30px;
+  background-color: #3b5998;
+}
+
 .headerButton {
   position: absolute;
   right: 20px;
-  width: 120px;
-  height: 30px;
-  border-radius: 5px;
-  border: 0;
   background-color: #FCDFBA;
+}
+
+
+/* Body styling -- Motto area */
+
+.body > * {
+  text-align: center;
+  align-items: center;
+  justify-content: center; 
+}
+
+.bodyTop {
+  display: flex;
+  flex-direction: column;
+}
+
+.bodyTop > a{
+  color:black;
+  font-size: smaller;
+  text-decoration: underline;
+}
+
+.bodyTop > * {
+  margin: 10px;
+}
+
+.bodyTopText {
+  font-size: 18px;
+}
+
+.motto {
+  font-weight: 500;
+  font-size: 300%;
+  font-style: bold;
+}
+
+.subMotto{
+  width: 760px;
+}
+.signUp {
+  font-weight: bolder;
+  color: white;
+  width: 200px;
+  height: 35px; 
+  margin-top: 25px;
+  margin-bottom: 5px;
 }
