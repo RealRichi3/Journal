@@ -121,6 +121,7 @@ a {
 .subMotto{
   width: 760px;
 }
+
 .signUp {
   font-weight: bolder;
   color: white;
@@ -130,6 +131,7 @@ a {
   margin-bottom: 5px;
 }
 
+/* PC image area + right side pane  */
 .bodyMid {
   display: flex;
   flex-direction: row;
@@ -183,4 +185,27 @@ a {
   color: #303237;
   margin: 0;
   line-height: 20px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact {
+  margin: 0 auto;
+}
+.contact  > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contact > div > * {
+  margin-right: 25px;
+}
+
+.footerIcon {
+  height: 25px;
+  width: 25px;
 }
