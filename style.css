@@ -38,7 +38,7 @@ body {
   color: white;
   font-weight: 600;
   font-size: 12px;
-  position: relative;
+  position: fixed;
   padding: 10px;
   margin-left: 0; 
 }
@@ -83,6 +83,10 @@ a {
 
 
 /* Body styling -- Motto area */
+.body {
+  margin-top: 140px;
+}
+
 .body > * {
   text-align: center;
   align-items: center;
@@ -130,6 +134,7 @@ a {
   margin-top: 25px;
   margin-bottom: 5px;
 }
+
 
 /* PC image area + right side pane  */
 .bodyMid {
@@ -187,6 +192,44 @@ a {
   line-height: 20px;
 }
 
+
+/*  */
+.bodyB {
+  width: 100%;
+  font-size: 14px;
+}
+
+.headerB {
+  text-align: center;
+  
+}
+
+.headerB > p:first-child {
+  font-size: 50px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 140px;
+}
+
+.content > div {
+  width: 300px;
+  margin: 10px;
+  text-align: center;
+}
+
+.content > div > *:first-child + p{
+  font-size: 25px;
+}
+
+.bigIcon {
+  height: 80px;
+  width: 80px;
+}
+/* Footer */
 .footer {
   display: flex;
   flex-direction: column;
@@ -195,7 +238,7 @@ a {
 .contact {
   margin: 15px 40px;
   border: 1px solid;
-  border-color: #232528c3;
+  border-color: #5a5f66c3;
   border-left: 0;
   border-top: 0;
   border-right: 0;
