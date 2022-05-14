@@ -164,6 +164,21 @@ label {
   width: 250px;
 }
 
+.icon {
+  height: 15px;
+  width: 15px;
+  margin: 0 auto;
+}
+
+.close {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  border-radius: 3px;
+  border: 0;
+  outline: 0;
+}
+
 .ov input {
   margin-bottom: 20px;
   width: 230px;
