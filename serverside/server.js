@@ -1,28 +1,40 @@
 
-const {MongoClient} = require('mongodb')
+// const {MongoClient} = require('mongodb')
 const express = require("express")
 const morgan = require("morgan")
+const mongoose = require('mongoose')
 
 const userRoute = require('./routes/userRoutes')
 
 // Initialize database
-async function main(){
-    const uri = 'mongodb://localhost:27017/journalX'
-    const client = new MongoClient(uri);
+const uri = 'mongodb://localhost:27017/journalX'
+mongoose.connect(uri)
+const db = mongoose.connection
 
-    try {
-        await client.connect();
-        console.log(`Successfully connected to ${client.db().databaseName} database....`)
-    }
-    catch(error) {
-        console.log(error);
-    }
-    finally {
-        await client.close();
-    }
-}
+db.on('error', (err) => {
+    console.log(err)
+})
 
-main().catch(console.error)
+db.once('open', () => {
+    console.log(`Successfully connected to ${db.name} database....`)
+})
+
+// async function main(){
+//     const client = new MongoClient(uri);
+
+//     try {
+//         await client.connect();
+//         console.log(`Successfully connected to ${client.db().databaseName} database....`)
+//     }
+//     catch(error) {
+//         console.log(error);
+//     }
+//     finally {
+//         await client.close();
+//     }
+// }
+
+// main().catch(console.error)
 
 // Express
 const app = express();
