@@ -39,7 +39,7 @@ const addUser = (req, res, next) => {
     user.save()
     .then(response => {
         res.json({
-            message: 'An error Occured!'
+            message: 'Successfully added user details to database'
         })
     })
     .catch(error => {
@@ -69,7 +69,7 @@ const updateUserDetails = (req, res, next) => {
     // let changePass = req.body.changePass
     // let newPassword = req.body.newPassword
     let updatedData = {
-        name: req.body.name,
+        // name: req.body.name,
         email: req.body.email
     }
     // if (changePass == true){
@@ -82,7 +82,7 @@ const updateUserDetails = (req, res, next) => {
         })
     })
     .catch(error => {
-        res.join({
+        res.json({
             message: 'An error Occured!'
         })
     })  
@@ -93,13 +93,13 @@ const deleteUser = (req, res, next) => {
     let userID = req.body.userID
     User.findOneAndRemove(userID)
     .then(() => {
-        req.json({
+        res.json({
             message: 'User deleted successfully'
         })
     })
     .catch(error => {
-        req.json({
-            message: 'An error occured!'
+        res.json({
+            message: 'An error occured!' 
         })
     })
 }
