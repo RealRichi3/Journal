@@ -47,3 +47,5 @@ app.use(morgan('dev'));
 app.listen(PORT, function(){
     console.log(`Server is running on port ${PORT}....`)
 });
+
+app.use('/user', userRoute)
