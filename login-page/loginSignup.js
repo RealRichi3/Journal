@@ -40,27 +40,82 @@ function sendHttpRequest (method, url, data) {
     return promise
 }
 
-function matchPassword (password, confirmPassword) {
-    if (password != confirmPassword){
-        return False
+function checkInputs (name, email, password, confirmPassword) {
+    let [checkResultName, checkResultEmail, checkResultPassword] = true
+
+    // Check name length
+    if (name.textLength <= 3){
+        document.getElementsByClassName('cName').value = "Full name must have 3 or more characters" 
+        checkResultName = false
     }
+
+    // Check email format
+    let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (email.match(emailFormat)) {}
+    else {
+        let emailWarningMsg = document.getElementsByClassName('cEmail')
+        emailWarningMsg.value = "Invalid E-mail format"
+        checkResultEmail = false
+    }
+
+    // Password Check
+    {
+        const passwordFormat = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+
+        // Check Password Format
+        if (password.match(passwordFormat)) {
+        }else {
+            let noMatchMsg = document.getElementsByClassName('cPwd')
+            noMatchMsg.value = 'Minimun - 8 characters, must have Uppercase, lowercase, symbol and number'
+            checkResultPassword = false
+        }
+        
+        // Check if passwords match
+        if (password == confirmPassword){
+        }else { 
+            let passwordMatchMsg = document.getElementsByClassName('cCPwd')
+            passwordMatchMsg.value = "Password doesn't match"
+            checkResultPassword = false }
+    }
+
+    return checkResultName & checkResultEmail & checkResultPassword
 }
 
 signUpBtn.addEventListener('click', () => {
-    const name = document.getElementById('fname')
-    const email = document.getElementById('email')
-    const password = document.getElementById('password')
-    const confirmPassword = document.getElementById('confirmpassword')
-
-    password
-    let url = 'http://localhost:5000/user/adduser'
-    sendHttpRequest('POST', url, {
-        "name": name,
-        "email": email,
-        "password": password
-    }).then(response => {
-        console.log(response.message)
-    }, error => {
-        console.log(error.message)
-    })
+    const name = document.getElementById('fname').value
+    const email = document.getElementById('email').value
+    const password = document.getElementById('password').value
+    const confirmPassword = document.getElementById('confirmPassword').value
+    
+    if (checkInputs){
+        let url = 'http://localhost:5000/user/adduser'
+        sendHttpRequest('POST', url, {
+            "name": name,
+            "email": email,
+            "password": password
+        }).then(response => {
+            console.log(response.message)
+            // Add siigned up successfully msg here
+        }, error => {
+            console.log(error.message)
+        })
+    }
+    
 })           
+
+// // Get the input field
+// var input = document.getElementById("myInput");
+
+// // Get the warning text
+// var text = document.getElementById("text");
+
+// // When the user presses any key on the keyboard, run the function
+// input.addEventListener("keyup", function(event) {
+
+//   // If "caps lock" is pressed, display the warning text
+//   if (event.getModifierState("CapsLock")) {
+//     text.style.display = "block";
+//   } else {
+//     text.style.display = "none"
+//   }
+// }); 

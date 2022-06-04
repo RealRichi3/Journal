@@ -180,7 +180,7 @@ label {
 }
 
 .ov input {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   width: 230px;
   border-radius: 15px;
   height: 30px;
@@ -192,9 +192,13 @@ label {
 }
 
 .inputCriteriaMsg {
-  color: red;
+  color: rgb(187, 69, 58);
   font-size: 10px;
   font-style: italic;
+  margin: 0;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .ov label {
