@@ -41,20 +41,25 @@ function sendHttpRequest (method, url, data) {
 }
 
 function checkInputs (name, email, password, confirmPassword) {
-    let [checkResultName, checkResultEmail, checkResultPassword] = true
-
+    let [checkResultName, checkResultEmail, checkResultPassword] = [true, true, true]
+    
     // Check name length
-    if (name.textLength <= 3){
-        document.getElementsByClassName('cName').value = "Full name must have 3 or more characters" 
-        checkResultName = false
+    {
+        let nameTextWarning = document.getElementsByClassName('cName')[0]
+        if (name.length <= 3){
+            nameTextWarning.innerHTML = "Full name must have 3 or more characters" 
+            checkResultName = false
+        }else { 
+            nameTextWarning.innerHTML = ''
+            console.log('Name is valid') }
     }
-
+    
     // Check email format
     let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (email.match(emailFormat)) {}
+    let emailWarningMsg = document.getElementsByClassName('cEmail')[0]
+    if (email.match(emailFormat)) { emailWarningMsg.innerHTML = ''}
     else {
-        let emailWarningMsg = document.getElementsByClassName('cEmail')
-        emailWarningMsg.value = "Invalid E-mail format"
+        emailWarningMsg.innerHTML = "Invalid E-mail format"
         checkResultEmail = false
     }
 
@@ -64,21 +69,23 @@ function checkInputs (name, email, password, confirmPassword) {
 
         // Check Password Format
         if (password.match(passwordFormat)) {
+            console.log('Password format valid')
         }else {
-            let noMatchMsg = document.getElementsByClassName('cPwd')
-            noMatchMsg.value = 'Minimun - 8 characters, must have Uppercase, lowercase, symbol and number'
+            let noMatchMsg = document.getElementsByClassName('cPwd')[0]
+            noMatchMsg.innerHTML = 'Minimun - 8 characters, must have Uppercase, lowercase, symbol and number'
             checkResultPassword = false
         }
         
         // Check if passwords match
         if (password == confirmPassword){
+            console.log('Passwords match')
         }else { 
-            let passwordMatchMsg = document.getElementsByClassName('cCPwd')
-            passwordMatchMsg.value = "Password doesn't match"
+            let passwordMatchMsg = document.getElementsByClassName('cCPwd')[0]
+            passwordMatchMsg.innerHTML = "Password doesn't match"
             checkResultPassword = false }
     }
-
-    return checkResultName & checkResultEmail & checkResultPassword
+    console.log(checkResultName & checkResultEmail & checkResultPassword)
+    return (checkResultName & checkResultEmail & checkResultPassword)
 }
 
 signUpBtn.addEventListener('click', () => {
@@ -87,7 +94,8 @@ signUpBtn.addEventListener('click', () => {
     const password = document.getElementById('password').value
     const confirmPassword = document.getElementById('confirmPassword').value
     
-    if (checkInputs){
+    check = checkInputs(name, email, password, confirmPassword)
+    if (check){
         let url = 'http://localhost:5000/user/adduser'
         sendHttpRequest('POST', url, {
             "name": name,
@@ -99,8 +107,9 @@ signUpBtn.addEventListener('click', () => {
         }, error => {
             console.log(error.message)
         })
+    }else {
+        console.log('Invalid inputs')
     }
-    
 })           
 
 // // Get the input field
