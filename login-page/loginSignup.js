@@ -108,6 +108,7 @@ const [popUpBox, popUpIcon, popUpMsg] = [
     document.getElementsByClassName("msgIcon")[0],
     document.getElementById("popUpMsg")
 ];
+
 // Display timeout for popUp box after sending input details
 function popUp(iconPath, textContent, closeOverlay) {
     popUpBox.style.visibility = "visible";
