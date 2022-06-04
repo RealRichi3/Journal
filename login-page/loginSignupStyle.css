@@ -44,7 +44,6 @@ body {
   color: #FFFFFF;
   background-size: cover;
   background-repeat: no-repeat;
-  /* background-image: url("https://i.pinimg.com/736x/5d/73/ea/5d73eaabb25e3805de1f8cdea7df4a42--tumblr-backgrounds-iphone-phone-wallpapers-iphone-wallaper-tumblr.jpg"); */
   background-color: #1d2023;
   overflow: hidden;
 }
@@ -181,7 +180,7 @@ label {
 }
 
 .ov input {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 230px;
   border-radius: 15px;
   height: 30px;
@@ -192,12 +191,19 @@ label {
   color: #373c47;
 }
 
+.inputCriteriaMsg {
+  color: red;
+  font-size: 10px;
+  font-style: italic;
+}
+
 .ov label {
   margin-left: 5px;
+  margin-bottom: 3px;
 }
 
 .signUpBtn {
-  height: 35px;
+  height: 30px;
   width: 160px;
   padding: 0;
   margin-top: 20px;
