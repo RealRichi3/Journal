@@ -5,6 +5,8 @@
 	<title>Login/SignUp</title>
 	<link rel="stylesheet" href="./loginSignupStyle.css">
 	<!-- <script type="text/javascript" src="./loginSignup.js"></script> -->
+	
+	<!-- <script type="text/javascript" src="./loginSignup.js"></script> -->
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -50,14 +52,21 @@
 			<button class="close"><img class="icon" src="../img/icon/close.png"></button>
 			<div class="ov containerS">
 				<form>
-					<label for="fname">FULL NAME</label><br>
-					<input type="text" id="fname" name="fname"><br>
-					<label for="lname">EMAIL</label><br>
-					<input type="text" id="lname" name="lname">
-					<label for="password"> PASSWORD</label><br>
+					<label for="fname">FULL NAME</label>
+					<input type="text" id="fname" name="fname">
+					<p class="inputCriteriaMsg name"> Must be 3 characters or more </p>
+					
+					<label for="email">EMAIL</label>
+					<input type="text" id="email" name="email">
+					<p class="inputCriteriaMsg email"> </p>
+
+					<label for="password"> PASSWORD</label>
 					<input type="password" id="password" name="password">
-					<label for="confirmPassword"> CONFIRM PASSWORD</label><br>
+					<p class="inputCriteriaMsg pwd"> </p>
+
+					<label for="confirmPassword"> CONFIRM PASSWORD</label>
 					<input type="password" id="confirmPassword" name="confirmPassword">
+					<p class="inputCriteriaMsg cpwd"> </p>
 				</form>
 
 				<button class="btn signUpBtn"> SIGN UP</button>
@@ -66,5 +75,10 @@
 		<!-- partial -->
 	</div>
 	<script type="text/javascript" src="./loginSignup.js"></script>
+
+	<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+	<!-- <script src="../requests/node_modules/axios/dist/axios.min.js" ></script> -->
+	<!-- <script src="../requests/loginRequests.js"></script> -->
+	
 </body>
 </html>
