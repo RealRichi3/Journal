@@ -2,8 +2,17 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta
+            name="google-signin-client_id"
+            content="358707472211-8akeclojbvker558pkkm8c6ev2dgrbtu.apps.googleusercontent.com.apps.googleusercontent.com"
+        />
         <title>Login/SignUp</title>
         <link rel="stylesheet" href="./loginSignupStyle.css" />
+        <script
+            src="https://apis.google.com/js/platform.js"
+            async
+            defer
+        ></script>
     </head>
     <body>
         <div class="container">
@@ -16,9 +25,13 @@
                             elit. Curabitur et est sed felis aliquet
                             sollicitudin
                         </p>
-                        <button class="btn loginGoogle">
+                        <button
+                            class="g-signin2 loginGoogle"
+                            data-onsuccess="onSignIn"
+                        ></button>
+                        <!-- <button class="btn loginGoogle">
                             Login with Google
-                        </button>
+                        </button> -->
                     </div>
                 </div>
 
@@ -80,6 +93,11 @@
                     </form>
 
                     <button class="btn signUpBtn">SIGN UP</button>
+
+                    <button
+                        class="g-signin2"
+                        data-onsuccess="onSignIn"
+                    ></button>
                 </div>
                 <div class="finalMsg">
                     <div>
