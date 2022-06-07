@@ -30,7 +30,7 @@ app.use(morgan("dev"));
 // Set access control allow origin
 app.use(
     cors({
-        origin: ["http://127.0.0.1:5500", "http://github.io"]
+        origin: ["http://127.0.0.1:5500", "https://github.io"]
     })
 );
 
