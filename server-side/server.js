@@ -34,6 +34,12 @@ app.use(
     })
 );
 
+app.use((req, res, next) => {
+    const origin = req.header("Origin");
+    console.log(origin);
+    next();
+});
+
 app.listen(PORT, function () {
     console.log(`Server is running on port ${PORT}....`);
 });
