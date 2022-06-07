@@ -279,6 +279,11 @@ label {
         float: left;
     }
 
+    .loginGoogle {
+        bottom: 35px;
+        left: 200px;
+    }
+
     .box-form .right .remember-me--forget-password {
         display: flex;
         justify-content: left;
