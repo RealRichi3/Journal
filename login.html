@@ -6,15 +6,18 @@
             name="google-signin-client_id"
             content="476682140274-vnugtkq1mb2gb3161akokimfke2r6kmi.apps.googleusercontent.com"
         />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
         <title>Login/SignUp</title>
-        <link rel="stylesheet" href="./loginSignupStyle.css" />
+        <link rel="stylesheet" href="./styles/login_style.css" />
     </head>
     <body>
-        <script
-            src="https://apis.google.com/js/platform.js"
-            async
-            defer
-        ></script>
+        <div
+            id="g_id_onload"
+            data-client_id="476682140274-vnugtkq1mb2gb3161akokimfke2r6kmi"
+            data-callback="handleCredentialResponse"
+        ></div>
+
         <div class="container">
             <div class="box-form">
                 <div class="left">
@@ -25,13 +28,11 @@
                             elit. Curabitur et est sed felis aliquet
                             sollicitudin
                         </p>
+
                         <div
-                            class="g-signin2 loginGoogle"
-                            data-onsuccess="onSignIn"
+                            class="g_id_signin loginGoogle"
+                            data-type="standard"
                         ></div>
-                        <!-- <button class="btn loginGoogle">
-                            Login with Google
-                        </button> -->
                     </div>
                 </div>
 
@@ -94,7 +95,15 @@
 
                     <button class="btn signUpBtn">SIGN UP</button>
 
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <div
+                        class="g_id_signin"
+                        id="g-signin2"
+                        data-type="standard"
+                    ></div>
+                    <!-- <div
+                        class="g-signin2 loginGoogle"
+                        onclick="onSignIn();"
+                    ></div> -->
                 </div>
                 <div class="finalMsg">
                     <div>
@@ -106,6 +115,17 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="./loginSignup.js"></script>
+
+        <script type="module" src="./scripts/send_request.js"></script>
+        <script type="module" src="./scripts/login.js"></script>
+        <script
+            type="text/javascript"
+            src="./scripts/google_credential_handler.js"
+        ></script>
+        <script
+            src="https://accounts.google.com/gsi/client"
+            async
+            defer
+        ></script>
     </body>
 </html>
