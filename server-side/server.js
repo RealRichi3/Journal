@@ -1,4 +1,5 @@
 // const {MongoClient} = require('mongodb')
+
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
@@ -30,7 +31,7 @@ app.use(morgan("dev"));
 // Set access control allow origin
 app.use(
     cors({
-        origin: ["http://127.0.0.1:5500", "https://realrichi3.github.io"]
+        origin: ["http://localhost:8080", "https://realrichi3.github.io"]
     })
 );
 
@@ -40,8 +41,8 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use("/user", userRoute);
+
 app.listen(PORT, function () {
     console.log(`Server is running on port ${PORT}....`);
 });
-
-app.use("/user", userRoute);
