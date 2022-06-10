@@ -12,6 +12,9 @@ const userSchema = new Schema(
         },
         password: {
             type: String
+        },
+        user_type: {
+            type: String
         }
     },
     { timestamps: true }

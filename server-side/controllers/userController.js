@@ -29,11 +29,21 @@ const findUser = (req, res, next) => {
 
 // Add new user
 const addUser = (req, res, next) => {
-    let user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    });
+    let user;
+
+    if (req.body.user_type == "google") {
+        user = newUser({
+            name: req.body.name,
+            email: req.body.email,
+            user_type: req.body.user_type
+        });
+    } else {
+        user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password
+        });
+    }
 
     user.save()
         .then((response) => {
