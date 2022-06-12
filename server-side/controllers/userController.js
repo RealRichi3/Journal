@@ -13,6 +13,24 @@ const usersIndex = (req, res, next) => {
         });
 };
 
+// Find user with user data
+const findUserMatch = (req, res, next) => {
+    console.log(req.body);
+    User.findOne({
+        name: req.body.name,
+        email: req.body.email,
+        user_type: req.body.user_type
+    })
+        .then((response) => {
+            res.json(response);
+        })
+        .catch((error) => {
+            res.json({
+                message: "An error occured!"
+            });
+        });
+};
+
 // Find user with ID
 const findUser = (req, res, next) => {
     let userID = req.body.userId;
@@ -58,32 +76,14 @@ const addUser = (req, res, next) => {
         });
 };
 
-// const updatePassword = (req, res, next) => {
-//     let userID = req.body.userID
-//     let newPassword = req.body.newPassword
-//     let updatePassword = {
-//         password: req.body.password
-//     }
-//     User.findByIdAndUpdate(userID, {$set: updatePassword})
-//     .then(() => {
-//         res.json({
-//             message: `Password successfully updated for ${user}`
-//         })
-//     })
-// }
-
 // Update user details
 const updateUserDetails = (req, res, next) => {
     let userID = req.body.userID;
-    // let changePass = req.body.changePass
-    // let newPassword = req.body.newPassword
     let updatedData = {
-        // name: req.body.name,
+        name: req.body.name,
         email: req.body.email
     };
-    // if (changePass == true){
-    //     updatedData.password = newPassword
-    // }
+
     User.findByIdAndUpdate(userID, { $set: updatedData })
         .then(() => {
             res.json({
@@ -116,6 +116,7 @@ const deleteUser = (req, res, next) => {
 module.exports = {
     usersIndex,
     findUser,
+    findUserMatch,
     updateUserDetails,
     deleteUser,
     addUser
