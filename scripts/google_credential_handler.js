@@ -2,7 +2,6 @@
 
 // Decode credential response
 function decodeJwtResponse(token) {
-    console.log(token);
     const base64Url = token.split(".")[1];
     const decodedCredentials = JSON.parse(window.atob(base64Url));
 
@@ -10,24 +9,38 @@ function decodeJwtResponse(token) {
 }
 
 // Send user Data to database
-function updateDB(data) {
+function updateDatabase(data) {
     console.log("Sending userData to Database...");
     const url = "http://localhost:5000/user/adduser";
 
     sendHttpRequest("POST", url, data).then(
         (response) => {
             console.log(response.message);
-            // alert(response.message);
+            alert(response.message);
         },
         (error) => {
             console.log(error.message);
-            // alert(error.message);
+            alert(error.message);
         }
     );
 }
 
+function checkIfUserExists(userData) {
+    console.log(userData);
+    return sendHttpRequest(
+        "POST",
+        "http://localhost:5000/user/matchuser",
+        userData
+    )
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            return error.message;
+        });
+}
+
 function handleCredentialResponse(response) {
-    // to decode the credential response.
     console.log("handling Credential Response");
 
     const responsePayload = decodeJwtResponse(response.credential);
@@ -37,11 +50,14 @@ function handleCredentialResponse(response) {
         user_type: "google"
     };
 
-    updateDB(userDetails);
-    console.log("ID: " + responsePayload.sub);
-    console.log("Full Name: " + responsePayload.name);
-    console.log("Given Name: " + responsePayload.given_name);
-    console.log("Family Name: " + responsePayload.family_name);
-    console.log("Image URL: " + responsePayload.picture);
-    console.log("Email: " + responsePayload.email);
+    checkIfUserExists(userDetails).then((response) => {
+        if (response == null) {
+            // No match found for userDetails -- SignUp and redirect to homepage
+            console.log("User does not exist");
+            updateDatabase(userDetails);
+        } else {
+            // Signin and redirect to homepage
+            console.log("Signed In....");
+        }
+    });
 }
