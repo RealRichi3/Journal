@@ -32,7 +32,7 @@ const addUser = (req, res, next) => {
     let user;
 
     if (req.body.user_type == "google") {
-        user = newUser({
+        user = new User({
             name: req.body.name,
             email: req.body.email,
             user_type: req.body.user_type
