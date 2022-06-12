@@ -159,7 +159,11 @@ label {
 .ov {
     position: relative;
     font-size: 12px;
-    width: 250px;
+    /* width: 250px; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* justify-content: center; */
 }
 
 .icon {
@@ -206,7 +210,7 @@ label {
 
 .signUpBtn {
     height: 40px;
-    width: 100px;
+    width: 203px;
     padding: 0;
     margin: 20px;
     margin-right: 0;
@@ -216,6 +220,23 @@ label {
     background-color: #4285fa;
     float: left;
 }
+
+#g-signin2 {
+    display: inline-block;
+    /* float: right; */
+}
+
+/* #gsi_199193_838187-overlay,
+#gsi_549039_647536-wrapper,
+.L5Fo6c-bF1uUb {
+    height: 44px;
+    width: 203px;
+}
+
+#gsi_199193_838187-overlay .L5Fo6c-bF1uUb {
+    margin: 20px;
+    margin-left: 0px;
+} */
 
 .finalMsg {
     position: absolute;
