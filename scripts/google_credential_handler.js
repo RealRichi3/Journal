@@ -1,4 +1,4 @@
-import { sendHttpRequest } from "./send_request.js";
+// import { sendHttpRequest } from "./send_request.js";
 
 // Decode credential response
 function decodeJwtResponse(token) {
@@ -17,11 +17,11 @@ function updateDB(data) {
     sendHttpRequest("POST", url, data).then(
         (response) => {
             console.log(response.message);
-            alert(response.message);
+            // alert(response.message);
         },
         (error) => {
             console.log(error.message);
-            alert(error.message);
+            // alert(error.message);
         }
     );
 }

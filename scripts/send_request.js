@@ -1,5 +1,9 @@
 // REQUESTS
 function sendHttpRequest(method, url, data) {
+    // method = HTTP request method
+    // URL = HTTP endpoint
+    // data = data to send
+
     const promise = new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.open(method, url);
@@ -23,4 +27,4 @@ function sendHttpRequest(method, url, data) {
     return promise;
 }
 
-export { sendHttpRequest };
+// export { sendHttpRequest };

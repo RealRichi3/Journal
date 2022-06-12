@@ -1,4 +1,4 @@
-import { sendHttpRequest } from "./send_request.js";
+// import { sendHttpRequest } from "./send_request.js";
 
 const createAccount = document.getElementsByClassName("createAcc")[0];
 const createAccForm = document.getElementsByClassName("overlayS")[0];
@@ -15,30 +15,6 @@ close.addEventListener("click", () => {
     createAccForm.style.visibility = "hidden";
 });
 
-// // REQUESTS
-// function sendHttpRequest(method, url, data) {
-//     const promise = new Promise((resolve, reject) => {
-//         const xhr = new XMLHttpRequest();
-//         xhr.open(method, url);
-//         xhr.responseType = "json";
-
-//         if (data) {
-//             xhr.setRequestHeader("Content-Type", "application/json");
-//         }
-
-//         xhr.onload = () => {
-//             if (xhr.status == 200) {
-//                 resolve(xhr.response);
-//             }
-//         };
-//         xhr.onerror = () => {
-//             reject("An error occured!");
-//         };
-
-//         xhr.send(JSON.stringify(data));
-//     });
-//     return promise;
-// }
 
 // Checks if User details match Criteria
 function checkInputs(name, email, password, confirmPassword) {
