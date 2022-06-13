@@ -1,5 +1,7 @@
 // import { sendHttpRequest } from "./send_request.js";
 
+const serverUrl = "http://localhost:5000/";
+
 // Decode credential response
 function decodeJwtResponse(token) {
     const base64Url = token.split(".")[1];
@@ -11,9 +13,8 @@ function decodeJwtResponse(token) {
 // Send user Data to database
 function updateDatabase(data) {
     console.log("Sending userData to Database...");
-    const url = "http://localhost:5000/user/adduser";
 
-    sendHttpRequest("POST", url, data).then(
+    sendHttpRequest("POST", serverUrl + "user/adduser/", data).then(
         (response) => {
             console.log(response.message);
             alert(response.message);
@@ -26,11 +27,7 @@ function updateDatabase(data) {
 }
 
 function checkIfUserExists(userData) {
-    return sendHttpRequest(
-        "POST",
-        "http://localhost:5000/user/matchuser",
-        userData
-    )
+    return sendHttpRequest("POST", serverUrl + "user/add/matchuser", userData)
         .then((response) => {
             return response;
         })
@@ -49,15 +46,20 @@ function handleCredentialResponse(response) {
         user_type: "google"
     };
 
-    checkIfUserExists(userDetails).then((response) => {
-        if (response == null) {
-            // No match found for userDetails -- SignUp and redirect to homepage
-            console.log("User does not exist");
-            console.log(response);
-            updateDatabase(userDetails);
-        } else {
-            // Signin and redirect to homepage
-            console.log("Signed In....");
-        }
-    });
+    checkIfUserExists(userDetails)
+        .then((response) => {
+            if (response == null) {
+                // No match found for userDetails -- SignUp
+                console.log("User does not exist");
+                console.log(response);
+                updateDatabase(userDetails);
+            } else {
+                // Match found Signin
+                console.log("Signed In....");
+                // Update homepage with user data
+            }
+        })
+        .finally
+        // Redirect to homepage
+        ();
 }
