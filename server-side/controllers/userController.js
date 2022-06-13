@@ -133,7 +133,7 @@ const deleteUser = (req, res, next) => {
 
 module.exports = {
     usersIndex,
-    findUser,
+    // findUser,
     findUserMatch,
     updateUserDetails,
     deleteUser,
