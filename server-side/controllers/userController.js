@@ -1,9 +1,11 @@
-const User = require("../models/userModel");
+const User = require("../models/userModel").User;
+const Password = require("../models/userModel").Password;
 
 // Show list of users
 const usersIndex = (req, res, next) => {
     User.find()
         .then((response) => {
+            console.log(response);
             res.json(response);
         })
         .catch((error) => {
@@ -31,40 +33,56 @@ const findUserMatch = (req, res, next) => {
         });
 };
 
-// Find user with ID
-const findUser = (req, res, next) => {
-    let userID = req.body.userId;
-    User.findById(userID)
-        .then((response) => {
-            res.json(response);
-        })
-        .catch((error) => {
-            res.json({
-                message: "An error occured!"
+// // Find user with ID
+// const findUser = (req, res, next) => {
+//     let userID = req.body.userId;
+//     User.findById(userID)
+//         .then((response) => {
+//             res.json(response);
+//         })
+//         .catch((error) => {
+//             res.json({
+//                 message: "An error occured!"
+//             });
+//         });
+// };
+
+// Add password to password collection
+const updatePassword = (userId, userPassword) => {
+    Password.findById(userId.toString()).then((response) => {
+        console.log(response);
+        if (response == null) {
+            console.log(
+                "Adding userId and userPassword to Password collection"
+            );
+            let password = new Password({
+                _id: userId,
+                password: userPassword
             });
-        });
+            password.save().then((response) => {
+                console.log(response);
+            });
+        } else {
+            console.log(
+                "Password and Id already exists in Password collection"
+            );
+        }
+    });
 };
 
 // Add new user
 const addUser = (req, res, next) => {
     let user;
 
-    if (req.body.user_type == "google") {
-        user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            user_type: req.body.user_type
-        });
-    } else {
-        user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password
-        });
-    }
+    user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        user_type: req.body.user_type || "regular"
+    });
 
     user.save()
         .then((response) => {
+            updatePassword(user._id, req.body.password);
             res.json({
                 message: "Successfully added user details to database"
             });
