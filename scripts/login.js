@@ -15,7 +15,6 @@ close.addEventListener("click", () => {
     createAccForm.style.visibility = "hidden";
 });
 
-
 // Checks if User details match Criteria
 function checkInputs(name, email, password, confirmPassword) {
     let [checkResultName, checkResultEmail, checkResultPassword] = [
@@ -100,6 +99,7 @@ function popUp(iconPath, textContent, closeOverlay) {
     );
 }
 
+// Sign up
 signUpBtn.addEventListener("click", () => {
     const name = document.getElementById("fname").value;
     const email = document.getElementById("email").value;
@@ -116,21 +116,19 @@ signUpBtn.addEventListener("click", () => {
         }).then(
             (response) => {
                 console.log(response.message);
-                popUp("../img/icon/successful.png", "Successfull", true);
+                popUp("./img/icon/successful.png", "Successfull", true);
             },
             (error) => {
                 console.log(error.message);
-                popUp(
-                    "../img/icon/error-occured.png",
-                    "An Error occured",
-                    true
-                );
+                popUp("./img/icon/error-occured.png", "An Error occured", true);
             }
         );
     } else {
-        popUp("../img/icon/invalid-details.gif", "Invalid details", false);
+        popUp("./img/icon/invalid-details.gif", "Invalid details", false);
     }
 });
+
+// Login
 
 // Links for icon files
 {
