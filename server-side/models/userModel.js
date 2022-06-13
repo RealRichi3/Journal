@@ -20,5 +20,16 @@ const userSchema = new Schema(
     { timestamps: true }
 );
 
+const passwordSchema = new Schema({
+    _id: {
+        type: String
+    },
+    password: {
+        type: String
+    }
+});
+
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+const Password = mongoose.model("Password", passwordSchema);
+
+module.exports = { User, Password };
