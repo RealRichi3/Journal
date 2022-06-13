@@ -14,7 +14,7 @@ function decodeJwtResponse(token) {
 function updateDatabase(data) {
     console.log("Sending userData to Database...");
 
-    sendHttpRequest("POST", serverUrl + "user/adduser/", data).then(
+    sendHttpRequest("POST", `${serverUrl}user/adduser`, data).then(
         (response) => {
             console.log(response.message);
             alert(response.message);
@@ -27,7 +27,7 @@ function updateDatabase(data) {
 }
 
 function checkIfUserExists(userData) {
-    return sendHttpRequest("POST", serverUrl + "user/add/matchuser", userData)
+    return sendHttpRequest("POST", `${serverUrl}user/matchuser`, userData)
         .then((response) => {
             return response;
         })
