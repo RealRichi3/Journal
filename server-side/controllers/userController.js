@@ -33,6 +33,40 @@ const findUserMatch = (req, res, next) => {
         });
 };
 
+const confirmLogin = (req, res, next) => {
+    console.log(req.body);
+    Password.findOne({
+        email: req.body.email,
+        password: req.body.password,
+        user_type: "regular"
+    })
+        .then((response) => {
+            // If user is not found
+            if (response == null) {
+                res.json({
+                    message: "Invalid credentials"
+                });
+                res.status(401);
+            } else {
+                // If user is found
+                // res.json({
+                //     message: "Login successful"
+                // });
+                res.status(200).json({
+                    message: "Login successful",
+                    status: res.status
+                });
+            }
+        })
+        .catch((error) => {
+            // If error occured
+            res.json({
+                message: "An error occured!"
+            });
+            res.status(401);
+        });
+};
+
 // // Find user with ID
 // const findUser = (req, res, next) => {
 //     let userID = req.body.userId;
@@ -137,5 +171,6 @@ module.exports = {
     findUserMatch,
     updateUserDetails,
     deleteUser,
-    addUser
+    addUser,
+    confirmLogin
 };
