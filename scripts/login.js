@@ -3,6 +3,7 @@
 const createAccount = document.getElementsByClassName("createAcc")[0];
 const createAccForm = document.getElementsByClassName("overlayS")[0];
 const signUpBtn = document.getElementsByClassName("signUpBtn")[0];
+const loginBtn = document.getElementById("loginBtn");
 const close = document.getElementsByClassName("close")[0];
 
 // Action: Create account link
@@ -82,6 +83,7 @@ const [popUpBox, popUpIcon, popUpMsg] = [
     document.getElementById("popUpMsg")
 ];
 
+// Display popUp box
 function popUp(iconPath, textContent, closeOverlay) {
     popUpBox.style.visibility = "visible";
     popUpIcon.setAttribute("src", `${iconPath}`);
@@ -99,7 +101,22 @@ function popUp(iconPath, textContent, closeOverlay) {
     );
 }
 
-// Sign up
+// Action: Make HTTP request to server
+function requestToServer(method, url, data, popUpMsg) {
+    return sendHttpRequest(method, url, data).then((response) => {
+        console.log("loging");
+        console.log(response);
+        console.log(response.status);
+        if (response.status == 200) {
+            popUp("./img/icon/successful.png", popUpMsg.success, true);
+        } else {
+            popUp("./img/icon/error-occured.png", popUpMsg.error, true);
+        }
+        return response;
+    });
+}
+
+// Action: Sign up button
 signUpBtn.addEventListener("click", () => {
     const name = document.getElementById("fname").value;
     const email = document.getElementById("email").value;
@@ -108,27 +125,47 @@ signUpBtn.addEventListener("click", () => {
 
     const check = checkInputs(name, email, password, confirmPassword);
     if (check == 1) {
+        // If all inputs are valid
         let url = "http://localhost:5000/user/adduser";
-        sendHttpRequest("POST", url, {
+        let data = {
             name: name,
             email: email,
             password: password
-        }).then(
-            (response) => {
-                console.log(response.message);
-                popUp("./img/icon/successful.png", "Successfull", true);
-            },
-            (error) => {
-                console.log(error.message);
-                popUp("./img/icon/error-occured.png", "An Error occured", true);
+        };
+        requestToServer("POST", url, data, {
+            success: "Account created successfully",
+            error: "An error occured!"
+        }).then((response) => {
+            if (response.status === 200) {
+                // If account created successfully then login
+                alert("Account created successfully, Please Login");
             }
-        );
+        }); // Send request to server
     } else {
         popUp("./img/icon/invalid-details.gif", "Invalid details", false);
     }
 });
 
-// Login
+// Action: Login button
+loginBtn.addEventListener("click", () => {
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    let url = "http://localhost:5000/user/login";
+    let data = {
+        email: email,
+        password: password
+    };
+    requestToServer("POST", url, data, {
+        success: "Login successful",
+        error: "Login failed"
+    }).then((response) => {
+        if (response.status === 200) {
+            // If login successful redirect to home page
+            window.location.href = "./journal.html";
+        }
+    }); // Send request to server
+});
 
 // Links for icon files
 {
