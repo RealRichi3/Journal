@@ -4,13 +4,18 @@ const Password = require("../models/userModel").Password;
 // Show list of users
 const usersIndex = (req, res, next) => {
     User.find()
+        .lean()
         .then((response) => {
             console.log(response);
-            res.json(response);
+            res.status(200).send({
+                ...response,
+                status: res.statusCode
+            });
         })
         .catch((error) => {
-            res.json({
-                message: "An error occured!"
+            res.status(400).send({
+                message: "An error occured",
+                status: res.statusCode
             });
         });
 };
@@ -23,12 +28,21 @@ const findUserMatch = (req, res, next) => {
         email: req.body.email,
         user_type: req.body.user_type
     })
+        .lean()
         .then((response) => {
-            res.json(response);
+            // If user match is found
+            console.log(response);
+            res.status(200).send({
+                ...response,
+                status: res.statusCode
+            });
         })
         .catch((error) => {
-            res.json({
-                message: "An error occured!"
+            // If error occured
+            console.log(error);
+            res.status(404).send({
+                message: "An error Occured!",
+                status: res.statusCode
             });
         });
 };
@@ -40,30 +54,29 @@ const confirmLogin = (req, res, next) => {
         password: req.body.password,
         user_type: "regular"
     })
+        .lean()
         .then((response) => {
             // If user is not found
             if (response == null) {
-                res.json({
-                    message: "Invalid credentials"
+                res.status(401).send({
+                    message: "Invalid credentials",
+                    status: 401
                 });
-                res.status(401);
             } else {
                 // If user is found
-                // res.json({
-                //     message: "Login successful"
-                // });
-                res.status(200).json({
+                res.status(200).send({
                     message: "Login successful",
-                    status: res.status
+                    status: res.statusCode
                 });
             }
         })
         .catch((error) => {
             // If error occured
-            res.json({
-                message: "An error occured!"
+            console.log(error);
+            res.status(400).send({
+                message: "Ann error occured!",
+                status: res.statusCode
             });
-            res.status(401);
         });
 };
 

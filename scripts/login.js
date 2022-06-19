@@ -112,6 +112,7 @@ function requestToServer(method, url, data, popUpMsg) {
         } else {
             popUp("./img/icon/error-occured.png", popUpMsg.error, true);
         }
+        console.log(`HTTP request code - ${response.status}`);
         return response;
     });
 }
@@ -159,12 +160,17 @@ loginBtn.addEventListener("click", () => {
     requestToServer("POST", url, data, {
         success: "Login successful",
         error: "Login failed"
-    }).then((response) => {
-        if (response.status === 200) {
-            // If login successful redirect to home page
-            window.location.href = "./journal.html";
-        }
-    }); // Send request to server
+    })
+        .then((response) => {
+            if (response.status === 200) {
+                // If login successful redirect to home page
+                window.location.href = "./journal.html";
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log(error.status);
+        }); // Send request to server
 });
 
 // Links for icon files

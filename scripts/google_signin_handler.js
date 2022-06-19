@@ -53,8 +53,10 @@ function handleCredentialResponse(response) {
                 console.log("User does not exist");
                 console.log(response);
                 updateDatabase(userDetails);
-            } else {
+            } else if (response.status == 200) {
                 // Match found Signin
+                console.log(response);
+                console.log(response.name);
                 console.log("Signed In....");
                 // Update homepage with user data
             }
