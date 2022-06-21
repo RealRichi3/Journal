@@ -1,6 +1,7 @@
-// import { sendHttpRequest } from "./send_request.js";
+// import { sendHttpRequest } from "./utils/send_request.js";
 // import { popUp } from "./pop_up.js";
 
+const staticDir = "http://localhost:8080/static/";
 const createAccount = document.getElementsByClassName("createAcc")[0];
 const createAccForm = document.getElementsByClassName("overlayS")[0];
 const signUpBtn = document.getElementsByClassName("signUpBtn")[0];
@@ -60,7 +61,7 @@ function checkInputs(name, email, password, confirmPassword) {
             noMatchMsg.innerHTML = "";
         } else {
             noMatchMsg.innerHTML =
-                "Minimun - 8 characters, must have at least 1 Uppercase, 1 lowercase, and 1 number";
+                "At least 8 characters (1 Uppercase, 1 lowercase, 1 number)";
             checkResultPassword = false;
         }
 
@@ -81,10 +82,18 @@ function checkInputs(name, email, password, confirmPassword) {
 function requestToServer(method, url, data, popUpMsg) {
     return sendHttpRequest(method, url, data).then((response, error) => {
         if (response.status == 200) {
-            popUp("./img/icon/successful.png", popUpMsg.success, true);
+            popUp(
+                `${staticDir}/img/icon/successful.png`,
+                popUpMsg.success,
+                true
+            );
         } else {
             console.log(error);
-            popUp("./img/icon/error-occured.png", popUpMsg.error, true);
+            popUp(
+                `${staticDir}img/icon/error-occured.png`,
+                popUpMsg.error,
+                true
+            );
         }
         return response;
     });
@@ -116,7 +125,11 @@ signUpBtn.addEventListener("click", () => {
             }
         }); // Send request to server
     } else {
-        popUp("./img/icon/invalid-details.gif", "Invalid details", false);
+        popUp(
+            `${staticDir}/img/icon/invalid-details.gif`,
+            "Invalid details",
+            false
+        );
     }
 });
 
