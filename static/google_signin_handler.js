@@ -55,8 +55,6 @@ function handleCredentialResponse(response) {
                 updateDatabase(userDetails);
             } else if (response.status == 200) {
                 // Match found Signin
-                console.log(response);
-                console.log(response.name);
                 console.log("Signed In....");
                 // Update homepage with user data
             }

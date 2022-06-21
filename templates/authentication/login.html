@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="google-signin-client_id"
+      content="476682140274-vnugtkq1mb2gb3161akokimfke2r6kmi.apps.googleusercontent.com"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Login/SignUp</title>
+    <link rel="stylesheet" href="../../static/styles/login_style.css" />
+    <script type="text/javascript" src="../../static/send_request.js"></script>
+  </head>
+  <body>
+    <script
+      type="text/javascript"
+      src="../../static/google_signin_handler.js"
+    ></script>
+    <div
+      id="g_id_onload"
+      data-client_id="476682140274-vnugtkq1mb2gb3161akokimfke2r6kmi"
+      data-callback="handleCredentialResponse"
+    ></div>
+
+    <div class="container">
+      <div class="box-form">
+        <div class="left">
+          <div class="overlay">
+            <h1>Hello World.</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+              et est sed felis aliquet sollicitudin
+            </p>
+
+            <div class="g_id_signin loginGoogle" data-type="standard"></div>
+          </div>
+        </div>
+
+        <div class="right">
+          <h5>Login</h5>
+          <p>
+            Don't have an account?
+            <a class="createAcc" href="#">Create Your Account</a> it takes less
+            than a minute
+          </p>
+          <div class="inputs">
+            <input type="text" id="loginEmail" placeholder="Email" />
+            <br />
+            <input type="password" id="loginPassword" placeholder="Password" />
+          </div>
+
+          <br /><br />
+
+          <div class="remember-me--forget-password">
+            <!-- Angular -->
+            <label>
+              <input type="checkbox" name="item" checked />
+              <span class="text-checkbox">Remember me</span>
+            </label>
+
+            <a href="" class="forgotPwd">forget password?</a>
+          </div>
+
+          <br />
+          <button class="btn" id="loginBtn">Login</button>
+        </div>
+      </div>
+
+      <div class="overlayS">
+        <button class="close">
+          <img class="icon" src="../../static/img/icon/close.png" />
+        </button>
+        <div class="ov containerS">
+          <form>
+            <label for="fname">FULL NAME</label>
+            <input type="text" id="fname" name="fname" />
+            <p class="inputCriteriaMsg cName"></p>
+
+            <label for="email">EMAIL</label>
+            <input type="text" id="email" name="email" />
+            <p class="inputCriteriaMsg cEmail"></p>
+
+            <label for="password"> PASSWORD</label>
+            <input type="password" id="password" name="password" />
+            <p class="inputCriteriaMsg cPwd"></p>
+
+            <label for="confirmPassword"> CONFIRM PASSWORD</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+            />
+            <p class="inputCriteriaMsg cCPwd"></p>
+          </form>
+
+          <button class="btn signUpBtn">SIGN UP</button>
+
+          <div class="g_id_signin" id="g-signin2" data-type="standard"></div>
+
+          <!-- <div
+                        class="g-signin2 loginGoogle"
+                        onclick="onSignIn();"
+                    ></div> -->
+        </div>
+        <div class="finalMsg">
+          <div>
+            <a target="_blank" href=""> <img class="msgIcon" src=" " /></a>
+          </div>
+          <p id="popUpMsg"></p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../../static/login.js"></script>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </body>
+</html>

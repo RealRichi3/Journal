@@ -1,4 +1,5 @@
 // import { sendHttpRequest } from "./send_request.js";
+// import { popUp } from "./pop_up.js";
 
 const createAccount = document.getElementsByClassName("createAcc")[0];
 const createAccForm = document.getElementsByClassName("overlayS")[0];
@@ -76,43 +77,15 @@ function checkInputs(name, email, password, confirmPassword) {
     return checkResultName & checkResultEmail & checkResultPassword;
 }
 
-// Display timeout for popUp box after sending input details
-const [popUpBox, popUpIcon, popUpMsg] = [
-    document.getElementsByClassName("finalMsg")[0],
-    document.getElementsByClassName("msgIcon")[0],
-    document.getElementById("popUpMsg")
-];
-
-// Display popUp box
-function popUp(iconPath, textContent, closeOverlay) {
-    popUpBox.style.visibility = "visible";
-    popUpIcon.setAttribute("src", `${iconPath}`);
-    popUpMsg.innerHTML = textContent;
-
-    setTimeout(
-        (close) => {
-            popUpBox.style.visibility = "hidden";
-            if (close) {
-                createAccForm.style.visibility = "hidden";
-            }
-        },
-        3000,
-        closeOverlay
-    );
-}
-
 // Action: Make HTTP request to server
 function requestToServer(method, url, data, popUpMsg) {
-    return sendHttpRequest(method, url, data).then((response) => {
-        console.log("loging");
-        console.log(response);
-        console.log(response.status);
+    return sendHttpRequest(method, url, data).then((response, error) => {
         if (response.status == 200) {
             popUp("./img/icon/successful.png", popUpMsg.success, true);
         } else {
+            console.log(error);
             popUp("./img/icon/error-occured.png", popUpMsg.error, true);
         }
-        console.log(`HTTP request code - ${response.status}`);
         return response;
     });
 }
@@ -164,7 +137,7 @@ loginBtn.addEventListener("click", () => {
         .then((response) => {
             if (response.status === 200) {
                 // If login successful redirect to home page
-                window.location.href = "./journal.html";
+                window.location.href = "../templates/journal.html";
             }
         })
         .catch((error) => {

@@ -4,7 +4,7 @@ const Password = require("../models/userModel").Password;
 // Show list of users
 const usersIndex = (req, res, next) => {
     User.find()
-        .lean()
+        .lean() // To get the data in the form of a plain object
         .then((response) => {
             console.log(response);
             res.status(200).send({
@@ -28,7 +28,7 @@ const findUserMatch = (req, res, next) => {
         email: req.body.email,
         user_type: req.body.user_type
     })
-        .lean()
+        .lean() // To get the data in the form of a plain object
         .then((response) => {
             // If user match is found
             console.log(response);
@@ -54,7 +54,7 @@ const confirmLogin = (req, res, next) => {
         password: req.body.password,
         user_type: "regular"
     })
-        .lean()
+        .lean() // To get the data in the form of a plain object
         .then((response) => {
             // If user is not found
             if (response == null) {
@@ -97,7 +97,6 @@ const confirmLogin = (req, res, next) => {
 // Add password to password collection
 const updatePassword = (userId, userPassword) => {
     Password.findById(userId.toString()).then((response) => {
-        console.log(response);
         if (response == null) {
             console.log(
                 "Adding userId and userPassword to Password collection"
@@ -135,6 +134,7 @@ const addUser = (req, res, next) => {
             });
         })
         .catch((error) => {
+            console.log(error);
             res.json({
                 message: "An error occured!"
             });

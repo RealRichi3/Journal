@@ -1,1 +1,3 @@
-serverside/node_modules
+server/node_modules
+server/.prettierrc.json
+static/.prettierrc.json
