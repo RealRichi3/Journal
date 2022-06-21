@@ -193,6 +193,12 @@ label {
     color: #373c47;
 }
 
+.ov > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .inputCriteriaMsg {
     color: rgb(187, 69, 58);
     font-size: 10px;
