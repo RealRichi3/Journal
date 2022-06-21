@@ -1,4 +1,6 @@
-// REQUESTS
+
+
+// send HTTP request to given endpoint
 function sendHttpRequest(method, url, data) {
     // method = HTTP request method
     // URL = HTTP endpoint
