@@ -162,6 +162,20 @@ const updateUserDetails = (req, res, next) => {
         });
 };
 
+// Checks if email exists in DB
+// Sends unique pasword-reset link to user's email address
+const resetPassword = (req, res, next) => {
+    let userEmail = req.body.email;
+    User.findOnde({ user_type: "regular", email: userEmail })
+        .lean()
+        .then((response) => {
+            if (response != null) {
+                // Generate unique link
+                // Send link to useremail address
+            }
+        });
+};
+
 // Delete user
 const deleteUser = (req, res, next) => {
     let userID = req.body.userID;
@@ -185,5 +199,6 @@ module.exports = {
     updateUserDetails,
     deleteUser,
     addUser,
-    confirmLogin
+    confirmLogin,
+    resetPassword
 };
