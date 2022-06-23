@@ -1,11 +1,12 @@
 // Display popUp box
-function popUp(iconPath, textContent, closeOverlay) {
-    const [popUpBox, popUpIcon, popUpMsg] = [
-        document.getElementsByClassName("finalMsg")[0],
-        document.getElementsByClassName("msgIcon")[0],
-        document.getElementById("popUpMsg")
-    ];
+const createAccForm = document.getElementsByClassName("overlayS")[0];
+const [popUpBox, popUpIcon, popUpMsg] = [
+    document.getElementsByClassName("finalMsg")[0],
+    document.getElementsByClassName("msgIcon")[0],
+    document.getElementById("popUpMsg")
+];
 
+function popUp(iconPath, textContent, closeOverlay) {
     popUpBox.style.visibility = "visible";
     popUpIcon.setAttribute("src", `${iconPath}`);
     popUpMsg.innerHTML = textContent;
