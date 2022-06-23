@@ -1,7 +1,11 @@
 const User = require("../models/userModel").User;
 const Password = require("../models/userModel").Password;
 const TempPassword = require("../models/userModel").TempPassword;
+const nodemailer = require("nodemailer");
 const randomToken = require("random-token");
+const hostAddress = "http://localhost:5000";
+
+// abnnrzypwzqulhuj
 
 // Show list of users
 const usersIndex = (req, res, next) => {
@@ -131,13 +135,14 @@ const addUser = (req, res, next) => {
     user.save()
         .then((response) => {
             updatePassword(user._id, req.body.password);
-            res.json({
-                message: "Successfully added user details to database"
+            res.status(200).send({
+                message: "Successfully added user details to database",
+                status: res.statusCode
             });
         })
         .catch((error) => {
             console.log(error);
-            res.json({
+            res.status(400).send({
                 message: "An error occured!"
             });
         });
@@ -153,32 +158,89 @@ const updateUserDetails = (req, res, next) => {
 
     User.findByIdAndUpdate(userID, { $set: updatedData })
         .then(() => {
-            res.json({
-                message: `User details successfully updated`
+            res.status(200).send({
+                message: `User details successfully updated`,
+                status: res.statusCode
             });
         })
         .catch((error) => {
-            res.json({
-                message: "An error Occured!"
+            res.status(401).send({
+                message: "An error Occured!",
+                status: res.statusCode
             });
         });
+};
+
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: "journalprojectjs@gmail.com",
+        pass: "abnnrzypwzqulhuj"
+    }
+});
+
+const mailOptions = (message) => {
+    return {
+        from: "journalprojectjs@gmail.com",
+        to: "molunorichie@gmail.com",
+        subject: "Password Reset",
+        text: message
+    };
 };
 
 // Checks if email exists in DB
 // Sends unique pasword-reset link to user's email address
 const resetPassword = (req, res, next) => {
+    console.log(req.body);
     let userEmail = req.body.email;
-    let userId = req.body._id;
-    User.findOnde({ user_type: "regular", email: userEmail, _id: userId })
+    User.findOne({ user_type: "regular", email: userEmail }) // Find user with email
         .lean()
         .then((response) => {
+            console.log(response);
             if (response != null) {
+                // If user is found in User collection
+                let userId = response._id;
                 let token = randomToken(16);
-                let TempPassword = new TempPassword({
-                    _id: userId,
-                    token: token
-                });
+                TempPassword.findOne({ _id: userId }) // Find user with userId in TempPassword collection
+                    .lean()
+                    .then((response) => {
+                        if (response == null) {
+                            // User has not been assigned a temporary reset password
+                            console.log("No temporary token for this User");
+                            let tempPassword = new TempPassword({
+                                // Create new temporary password
+                                _id: userId,
+                                token: token
+                            });
+                            tempPassword.save().catch((error) => {
+                                console.log(error);
+                            });
+                        } else {
+                            // User has been assigned a temporary reset password
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
 
+                let message =
+                    "You have requested a password reset.\n\n" +
+                    `
+                You requested a password reset for your JounalX account\
+                You have been assigned a temporary password 
+                Use this temporary token together with your email address to 
+                reset your login details
+                
+                Please click on the link below to continue
+                ${hostAddress}/reset-password`;
+                transporter.sendMail(mailOptions(message), (error, info) => {
+                    // Send token and resetLink to user's Email address
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log("Email sent: " + info.response);
+                    }
+                });
                 // Generate unique link
                 // Send link to useremail address
             }
