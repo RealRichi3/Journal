@@ -1,14 +1,14 @@
-const host = "http://localhost:8080/";
+const host = "http://localhost:5000/";
 
-let submitButton = document.getElementById("btn");
-let preResetPane = document.getElementByClassName('pre-reset')
-let postResetPane = document.getElementByClassName('post-reset')
-
+let submitButton = document.getElementsByClassName("resetBtn")[0];
+let preResetPane = document.getElementsByClassName("pre-reset")[0];
+let postResetPane = document.getElementsByClassName("post-reset")[0];
 
 // Sends userEmail to server
 submitButton.addEventListener("click", () => {
-    const email = document.getElementsByClassName("emailInput").value;
-    sendHttpRequest("POST", `${host}/user/reset-password`, {
+    const email = document.getElementsByClassName("emailInput")[0].value;
+
+    sendHttpRequest("POST", `${host}user/reset-password`, {
         email: email
     })
         .then((response) => {
@@ -17,5 +17,8 @@ submitButton.addEventListener("click", () => {
         .catch((error) => {
             console.log(error);
         });
-    window.location.href = "../templates/confirm-reset.html"; // Redirect to confirm-reset page
+
+    // Show post-reset pane
+    preResetPane.style.visibility = "hidden";
+    postResetPane.style.visibility = "visible";
 });
