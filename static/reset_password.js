@@ -1,6 +1,9 @@
 const host = "http://localhost:8080/";
 
 let submitButton = document.getElementById("btn");
+let preResetPane = document.getElementByClassName('pre-reset')
+let postResetPane = document.getElementByClassName('post-reset')
+
 
 // Sends userEmail to server
 submitButton.addEventListener("click", () => {
