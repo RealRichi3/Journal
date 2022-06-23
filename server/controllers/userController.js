@@ -1,5 +1,7 @@
 const User = require("../models/userModel").User;
 const Password = require("../models/userModel").Password;
+const TempPassword = require("../models/userModel").TempPassword;
+const randomToken = require("random-token");
 
 // Show list of users
 const usersIndex = (req, res, next) => {
@@ -166,10 +168,17 @@ const updateUserDetails = (req, res, next) => {
 // Sends unique pasword-reset link to user's email address
 const resetPassword = (req, res, next) => {
     let userEmail = req.body.email;
-    User.findOnde({ user_type: "regular", email: userEmail })
+    let userId = req.body._id;
+    User.findOnde({ user_type: "regular", email: userEmail, _id: userId })
         .lean()
         .then((response) => {
             if (response != null) {
+                let token = randomToken(16);
+                let TempPassword = new TempPassword({
+                    _id: userId,
+                    token: token
+                });
+
                 // Generate unique link
                 // Send link to useremail address
             }

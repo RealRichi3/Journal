@@ -29,7 +29,17 @@ const passwordSchema = new Schema({
     }
 });
 
+const tempPasswordSchema = new Schema({
+    _id: {
+        type: String
+    },
+    token: {
+        type: String
+    }
+});
+
 const User = mongoose.model("User", userSchema);
 const Password = mongoose.model("Password", passwordSchema);
+const TempPassword = mongoose.model("TempPassword", tempPasswordSchema);
 
-module.exports = { User, Password };
+module.exports = { User, Password, TempPassword };
