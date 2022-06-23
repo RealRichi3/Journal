@@ -81,9 +81,10 @@ function checkInputs(name, email, password, confirmPassword) {
 // Action: Make HTTP request to server
 function requestToServer(method, url, data, popUpMsg) {
     return sendHttpRequest(method, url, data).then((response, error) => {
+        console.log(response);
         if (response.status == 200) {
             popUp(
-                `${staticDir}/img/icon/successful.png`,
+                `${staticDir}img/icon/successful.png`,
                 popUpMsg.success,
                 true
             );
