@@ -35,6 +35,11 @@ const tempPasswordSchema = new Schema({
     },
     token: {
         type: String
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        expires: 120
     }
 });
 
