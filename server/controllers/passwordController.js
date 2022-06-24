@@ -68,68 +68,89 @@ const updatePassword = (userId, userPassword) => {
     });
 };
 
-// Checks if email exists in DB
-// Sends unique pasword-reset link to user's email address
+// Updates or creates temporary password in TempPassword collection
+const updateOrCreateTempPassword = (userId, token, update) => {
+    if (update) {
+        TempPassword.findByIdAndUpdate(userId.toString(), {
+            token: token
+        }).then((response) => {
+            console.log(response);
+        });
+    } else {
+        let tempPassword = new TempPassword({
+            _id: userId,
+            token: token
+        });
+        tempPassword.save().then((response) => {
+            console.log(response);
+        });
+    }
+};
+
+// Sends email with temporary token and password-reset link to user's email address
+const mailTemporaryDetails = (userEmail, token) => {
+    let message =
+        "You have requested a password reset.\n\n" +
+        `
+        You requested a password reset for your JounalX account\
+        You have been assigned a temporary password 
+        Use this temporary token together with your email address to 
+        reset your login details
+
+        Email: ${userEmail}
+        Temporary token: ${token},
+
+        Please click on the link below to continue
+        ${hostAddress}/reset-password`;
+
+    let userMailOption = mailOptions(
+        userEmail,
+        "JournalX Password Reset",
+        message
+    );
+
+    // Send token and resetLink to user's Email address
+    transporter.sendMail(userMailOption, (error, info) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Email sent: " + info.response);
+        }
+    });
+};
+
+// Checks if user exists in DB
+// Creates temporary password and sends email with temporary token...
+// ...and password-reset link to user's email address
 const resetPassword = (req, res, next) => {
     console.log(req.body);
     let userEmail = req.body.email;
+
     User.findOne({ user_type: "regular", email: userEmail }) // Find user with email
         .lean()
         .then((response) => {
             console.log(response);
+            // If user is found in User collection
             if (response != null) {
-                // If user is found in User collection
                 let userId = response._id;
                 let token = randomToken(16);
                 TempPassword.findOne({ _id: userId }) // Find user with userId in TempPassword collection
                     .lean()
                     .then((response) => {
                         if (response == null) {
-                            // User has not been assigned a temporary reset password
-                            console.log("No temporary token for this User");
-                            let tempPassword = new TempPassword({
-                                // Create new temporary password
-                                _id: userId,
-                                token: token
-                            });
-                            tempPassword.save().catch((error) => {
-                                console.log(error);
-                            });
+                            // User has to temporary password --> Add new userId and token to TempPassword collection
+                            updateOrCreateTempPassword(userId, token, false);
                         } else {
-                            // User has been assigned a temporary reset password
+                            // User has a temporary password --> Update user temporary token in TempPassword collection
+                            updateOrCreateTempPassword(userId, token, true);
                         }
                     })
                     .catch((error) => {
                         console.log(error);
                     });
-
-                let message =
-                    "You have requested a password reset.\n\n" +
-                    `
-                You requested a password reset for your JounalX account\
-                You have been assigned a temporary password 
-                Use this temporary token together with your email address to 
-                reset your login details
-                
-                Please click on the link below to continue
-                ${hostAddress}/reset-password`;
-
-                let userMailOption = mailOptions(
-                    userEmail,
-                    "JournalX Password Reset",
-                    message
-                );
-
-                transporter.sendMail(userMailOption, (error, info) => {
-                    // Send token and resetLink to user's Email address
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log("Email sent: " + info.response);
-                    }
-                });
-                // Generate unique link
-                // Send link to useremail address
+                mailTemporaryDetails(userEmail, token);
+            } else {
+                res.status(401).send();
             }
         });
 };
