@@ -90,18 +90,26 @@ const updateOrCreateTempPassword = (userId, token, update) => {
 // Sends email with temporary token and password-reset link to user's email address
 const mailTemporaryDetails = (userEmail, token) => {
     let message =
-        "You have requested a password reset.\n\n" +
-        `
-        You requested a password reset for your JounalX account\
-        You have been assigned a temporary password 
-        Use this temporary token together with your email address to 
-        reset your login details
-
-        Email: ${userEmail}
-        Temporary token: ${token},
-
-        Please click on the link below to continue
-        ${hostAddress}/reset-password`;
+        "You requested a password reset for your JounalX account\n\n" +
+        "You have been assigned a temporary password" +
+        "\n" +
+        "Use this temporary token together with your email address to reset your login details" +
+        "\n\n" +
+        "Email: " +
+        userEmail +
+        "\n" +
+        "Temporary password: " +
+        token +
+        "\n\n" +
+        "To reset your password, visit the following link:\n" +
+        hostAddress +
+        "/reset-password/" +
+        token +
+        "\n\n" +
+        "\n\n" +
+        "If you did not request a password reset, please ignore this email.\n\n" +
+        "Regards,\n" +
+        "JounalX team";
 
     let userMailOption = mailOptions(
         userEmail,
