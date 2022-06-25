@@ -1,4 +1,5 @@
 const {
+    confirmLogin,
     updatePassword,
     resetPassword
 } = require("../controllers/passwordController");
@@ -20,7 +21,7 @@ const usersIndex = (req, res, next) => {
         .catch((error) => {
             res.status(400).send({
                 message: "An error occured",
-                status: res.statusCode
+                status: res.statusCodes
             });
         });
 };
@@ -81,6 +82,7 @@ const addUser = (req, res, next) => {
 const resetUserPassword = (req, res, next) => {
     resetPassword(req, res, next);
 };
+
 // Update user details
 const updateUserDetails = (req, res, next) => {
     let userID = req.body.userID;
