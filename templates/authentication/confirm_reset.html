@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="../../favicon.ico" />
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="../../static/styles/confirm_reset.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left">
+        <div class="logo">
+          <img src="../../static/images/logo.png" alt="logo" />
+        </div>
+        <!-- <div class="bgImg">
+          <img
+            src="../../static/img/confirm_reset_left_bgImg.jpg"
+            alt="bgImg"
+          />
+        </div> -->
+        <div class="left-overlay"></div>
+      </div>
+      <div class="right">
+        <div class="form">
+          <h1>Reset Password</h1>
+
+          <div class="input-group pre">
+            <label> Email address</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+            <label> Temporary Password </label>
+            <input
+              type="password"
+              name="temporary_password"
+              placeholder="Temporary Password"
+            />
+
+            <button class="btn">Next</button>
+          </div>
+
+          <div class="input-group post">
+            <label> New Password </label>
+            <input
+              type="password"
+              name="new_password"
+              placeholder="New Password"
+            />
+            <label> Confirm Password </label>
+            <input
+              type="password"
+              name="confirm_password"
+              placeholder="Confirm Password"
+            />
+            <button class="btn">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="../../static/confirm_reset.js"></script>
+  </body>
+</html>

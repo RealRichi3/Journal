@@ -1,0 +1,141 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+.container {
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.left {
+    flex: 1;
+    /* width: 700px; */
+    height: 100%;
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-image: url("../img/confirm_reset_left_bgImg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.left-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(146, 44, 167, 0.3);
+}
+
+.bgImg {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://i.imgur.com/XqQXQZb.jpg");
+}
+
+.right {
+    flex: 2;
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 40px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 150px;
+    padding-right: 50px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+label {
+    color: rgb(62, 62, 62);
+    margin-bottom: 10px;
+}
+
+input {
+    height: 50px;
+    margin-bottom: 30px;
+    border-width: 0;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    outline: 0px;
+    border-color: #f2f2f2;
+    background-color: rgba(146, 44, 167, 0.06);
+    color: rgb(91, 88, 88);
+    font-size: 0.8rem;
+}
+
+input:hover,
+input:focus {
+    border-width: 1px;
+    border-color: rgba(146, 44, 167, 0.3);
+}
+
+.btn {
+    width: 120px;
+    height: 50px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(146, 44, 167, 0.65);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: rgba(146, 44, 167, 0.9);
+}
+
+.post {
+    visibility: hidden;
+    position: absolute;
+}
+
+@media (max-width: 900px) {
+    .form {
+        margin-left: 0;
+        width: 400px;
+        padding-left: 50px;
+    }
+
+    .input-group {
+        width: 300px;
+    }
+}
