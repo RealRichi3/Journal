@@ -4,6 +4,7 @@ const { User, Password, TempPassword } = require("../models/userModel");
 const randomToken = require("random-token");
 
 const hostAddress = "http://localhost:5000";
+const htmlHostAddress = "http://localhost:8080";
 
 // abnnrzypwzqulhuj
 
@@ -61,20 +62,26 @@ const updatePassword = (userId, userPassword) => {
                 console.log(response);
             });
         } else {
-            console.log(
-                "Password and Id already exists in Password collection"
-            );
+            console.log("Updating userPassword in Password collection"); // Update userPassword in Password collection
+            Password.findByIdAndUpdate(userId.toString(), {
+                password: userPassword
+            }).then((response) => {
+                console.log(response);
+            });
         }
     });
 };
 
 // Updates or creates temporary password in TempPassword collection
 const updateOrCreateTempPassword = (userId, token, update) => {
-    if (update) {
+    if (update == true) {
         TempPassword.findByIdAndUpdate(userId.toString(), {
             token: token
         }).then((response) => {
-            console.log(response);
+            console.log("Document details before update" + response);
+        });
+        TempPassword.findById(userId.toString()).then((response) => {
+            console.log("Document details after update" + response);
         });
     } else {
         let tempPassword = new TempPassword({
@@ -102,9 +109,8 @@ const mailTemporaryDetails = (userEmail, token) => {
         token +
         "\n\n" +
         "To reset your password, visit the following link:\n" +
-        hostAddress +
-        "/reset-password/" +
-        token +
+        htmlHostAddress +
+        "/templates/authentication/confirm_reset.html/" +
         "\n\n" +
         "\n\n" +
         "If you did not request a password reset, please ignore this email.\n\n" +
@@ -146,7 +152,7 @@ const resetPassword = (req, res, next) => {
                     .lean()
                     .then((response) => {
                         if (response == null) {
-                            // User has to temporary password --> Add new userId and token to TempPassword collection
+                            // User has no temporary password --> Add new userId and token to TempPassword collection
                             updateOrCreateTempPassword(userId, token, false);
                         } else {
                             // User has a temporary password --> Update user temporary token in TempPassword collection
@@ -163,8 +169,51 @@ const resetPassword = (req, res, next) => {
         });
 };
 
+const confirmResetToken = (req, res, next) => {
+    console.log(req.body);
+    let userEmail = req.body.email;
+    let token = req.body.token;
+
+    User.findOne({ user_type: "regular", email: userEmail }) // Find user with email
+        .lean()
+        .then((response) => {
+            console.log(response);
+            // If user is found in User collection
+            if (response != null) {
+                let userId = response._id;
+                TempPassword.findOne({ _id: userId, token: token }) // Find user with userId and token in TempPassword collection
+                    .lean()
+                    .then((response) => {
+                        if (response != null) {
+                            // Token has a match in temporary password collection
+                            res.status(200).send({
+                                match: true,
+                                status: res.statusCode
+                            });
+                        } else {
+                            // Token has no match in temporary password collection
+                            res.status(200).send({
+                                match: false,
+                                status: res.statusCode
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else {
+                // User has no match in User collection
+                res.status(401).send();
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
 module.exports = {
     confirmLogin,
     updatePassword,
-    resetPassword
+    resetPassword,
+    confirmResetToken
 };
