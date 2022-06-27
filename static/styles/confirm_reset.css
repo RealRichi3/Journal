@@ -123,9 +123,14 @@ input:focus {
     background-color: rgba(146, 44, 167, 0.9);
 }
 
-.post {
+#pre {
+    visibility: visible 
+}
+
+#post {
     visibility: hidden;
     position: absolute;
+    margin-top: 100px;
 }
 
 @media (max-width: 900px) {
