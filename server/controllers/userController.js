@@ -83,6 +83,36 @@ const resetUserPassword = (req, res, next) => {
     resetPassword(req, res, next);
 };
 
+// Update user password
+const updateUserPassword = (req, res, next) => {
+    console.log("Updating user password");
+    console.log(req.body);
+    User.findOne({ email: req.body.email }).lean()
+        .lean() // To get the data in the form of a plain object
+        .then((response) => {
+            console.log("found response");
+            console.log(response);
+            if (response != null) {
+                updatePassword(response._id, req.body.password);
+                res.status(200).send({
+                    message: "Successfully updated user password",
+                    status: res.statusCode
+                });
+            } else {
+                res.status(404).send({
+                    message: "User not found",
+                    status: res.statusCode
+                });
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(400).send({
+                message: "An error occured!"
+            });
+        });
+};
+
 // Update user details
 const updateUserDetails = (req, res, next) => {
     let userID = req.body.userID;
@@ -129,5 +159,6 @@ module.exports = {
     updateUserDetails,
     deleteUser,
     addUser,
-    resetUserPassword
+    resetUserPassword,
+    updateUserPassword
 };
