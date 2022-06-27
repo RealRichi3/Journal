@@ -151,7 +151,7 @@ loginBtn.addEventListener("click", () => {
         .then((response) => {
             if (response.status === 200) {
                 // If login successful redirect to home page
-                window.location.href = "../templates/journal.html";
+                window.location.href = "../journal.html";
             }
         })
         .catch((error) => {
