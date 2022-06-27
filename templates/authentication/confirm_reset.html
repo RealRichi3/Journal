@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='eu'>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,6 +9,10 @@
     <link rel="icon" href="../../favicon.ico" />
     <title>Reset Password</title>
     <link rel="stylesheet" href="../../static/styles/confirm_reset.css" />
+    <script
+      type="text/javascript"
+      src="../../static/utils/send_request.js"
+    ></script>
   </head>
 
   <body>
@@ -29,12 +33,13 @@
         <div class="form">
           <h1>Reset Password</h1>
 
-          <div class="input-group pre">
+          <div lang class="input-group" id="pre">
             <label> Email address</label>
             <input
               type="email"
               name="email"
               placeholder="Enter your email"
+              id="emailInput"
               required
             />
             <label> Temporary Password </label>
@@ -42,25 +47,28 @@
               type="password"
               name="temporary_password"
               placeholder="Temporary Password"
+              id="temporary_password"
             />
 
-            <button class="btn">Next</button>
+            <button class="btn firstNextBtn" id="">Next</button>
           </div>
 
-          <div class="input-group post">
+          <div class="input-group" id="post">
             <label> New Password </label>
             <input
               type="password"
               name="new_password"
               placeholder="New Password"
+              id="new_password"
             />
             <label> Confirm Password </label>
             <input
               type="password"
               name="confirm_password"
               placeholder="Confirm Password"
+              id="confirm_password"
             />
-            <button class="btn">Next</button>
+            <button class="btn secondNextBtn" id="">Next</button>
           </div>
         </div>
       </div>
